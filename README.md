@@ -2,7 +2,7 @@
 
 A project for learning the basics of functional programming in JavaScript. It takes a small, mostly imperative website and refactors it using practical declarative and functional concepts.
 
-## Functional Programming Topics Covered
+## Topics Covered
 - pure functions
 - side-effects and
 - declarative style
