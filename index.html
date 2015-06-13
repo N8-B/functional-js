@@ -12,26 +12,31 @@
         <header class="site-header">
             <a href="/" class="header-logo fancy">( McCarthy's Pub )</a>
         </header>
-        
+
         <h1 class="fancy">Beer List</h1>
-        
+
          <div id="filters">
             <a href="#" class="btn btn-default btn-active" data-filter="all">All</a>
+            <!--
             <a href="#" class="btn btn-default" data-filter="domestic">Domestic</a>
             <a href="#" class="btn btn-default" data-filter="imports">Imports</a>
+            -->
             <a href="#" class="btn btn-default" data-filter="ale">Ales</a>
             <a href="#" class="btn btn-default" data-filter="lager">Lagers</a>
             <a href="#" class="btn btn-default" data-filter="stout">Stouts</a>
+            <a href="#" class="btn btn-default" data-filter="surprise">Surprise</a>
         </div>
-        
+
         <ul id="beerList"></ul>
-        
+
+        <p id="averageAbv"></p>
+
         <script type="text/json" id="beerData">
         {
             "beers": [
-                {"name": "Bitter Hop", "type": "ipa", "locale": "domestic", "abv": 7.9},
-                {"name": "Dragonblood Black IPA", "type": "ipa", "locale": "domestic", "abv": 6.5},
-                {"name": "Good Dog Lager", "type": "lager", "locale": "domestic", "abv": 4.8},
+                {"name": "Bitter Hop", "type": "ipa", "locale": "domestic", "abv": 8.3},
+                {"name": "Dragonblood Black IPA", "type": "ipa", "locale": "domestic", "abv": 7.5},
+                {"name": "Good Dog Lager", "type": "lager", "locale": "domestic", "abv": 6.8},
                 {"name": "Good Dog Snowpants", "type": "stout", "locale": "domestic", "abv": 8.1},
                 {"name": "Lake Erie 2x IPA", "type": "ipa", "locale": "domestic", "abv": 9.3},
                 {"name": "Lake Erie Session", "type": "ale", "locale": "domestic", "abv": 4.2},
@@ -40,17 +45,29 @@
                 {"name": "Samwell Winter Ale", "type": "ale", "locale": "import", "abv": 6.8},
                 {"name": "Sparkwood Beer Five", "type": "lager", "locale": "domestic", "abv": 6.2},
                 {"name": "Sparkwood Campfire Lager", "type": "lager", "locale": "domestic", "abv": 5.8},
-                {"name": "Tartan Scottish Ale", "type": "ale", "locale": "import", "abv": 7.5} 
+                {"name": "Tartan Scottish Ale", "type": "ale", "locale": "import", "abv": 7.5}
             ]
         }
         </script>
-        
+
         <script type="text/template" id="tmpl-beer">
         <% _.forEach(beers, function (beer) { %>
-        <li><%= beer.name %> <small>(<%= beer.abv %>%)</small></li>
+        <li<% if (beer.special) { %> class='special'<% } %>><%= beer.name %> <small>(<%= beer.abv %>%)</small></li>
         <% }); %>
         </script>
-        
+
+        <script type="text/template" id="tmpl-beer-groups">
+        <% _.forEach(beers, function (group, name) { %>
+            <div class="beer-group">
+            <h3><%= name.charAt(0).toUpperCase() + name.slice(1) %>s</h3>
+            <% _.forEach(group, function (beer) { %>
+                <li<% if (beer.special) { %> class='special'<% } %>><%= beer.name %> <small>(<%= beer.abv %>%)</small></li>
+            <% }); %>
+            </div>
+        <% }); %>
+        </script>
+
+
     </div>
 
     <script src="https://rawgit.com/lodash/lodash/3.0.1/lodash.min.js"></script>
